@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+.env
+
+# Data files
+*.csv
+*.parquet
+
+# OS
+.DS_Store
+Thumbs.db
