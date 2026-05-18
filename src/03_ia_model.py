@@ -13,5 +13,3 @@ for texto, resultado in zip(textos_prueba, resultados):
     print(f"Tweet: {texto}")
     print(f"Predicción IA: {resultado}")
     print("-" * 30)
-
-

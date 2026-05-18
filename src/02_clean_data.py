@@ -24,7 +24,5 @@ df['text'] = df['text'].apply(clean_text)
 
 df.to_csv('data/clean_train.csv', index=False)
 
-
 print(df.shape)
 print(df.head())
-
