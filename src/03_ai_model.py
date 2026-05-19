@@ -10,7 +10,7 @@ def main():
     df  = pd.read_csv(CLEAN_DATA_PATH)
 
     logger.info("Inizializing sentiment analysis (HuggingFace)...")
-    sentiment_analyzer = pipeline("sentiment-analysis")
+    sentiment_analyzer = pipeline("sentiment-analysis", model="distilbert-base-uncased-finetuned-sst-2-english")
 
     logger.info("Selecting 5 sample texts for testing the AI model...")
     sample_texts = df['text'].head(5).tolist()
