@@ -18,11 +18,13 @@ def main():
     logger.info("Predicting sentiment for the sample texts...")
     results = sentiment_analyzer(sample_texts)
 
+    print("\n" + "="*30 + " AI Model Predictions " + "="*30 + "\n")
+
     logger.info("Predictions completed. Displaying results:")
 
-    for text, resultado in zip(sample_texts, results):
+    for text, result in zip(sample_texts, results):
         logger.info(f"Tweet: {text}")
-        logger.info(f"AI model prediction: {resultado}")
+        logger.info(f"AI model prediction: {result['label']} (confidence: {result['score']:.2%})")
         logger.info("-" * 30)
 
     logger.info("Process completed.")
