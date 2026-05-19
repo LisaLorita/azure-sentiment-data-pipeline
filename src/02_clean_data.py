@@ -1,6 +1,9 @@
-from utils.config import RAW_DATA_PATH, CLEAN_DATA_PATH
 import pandas as pd 
 import re 
+from utils.config import RAW_DATA_PATH, CLEAN_DATA_PATH
+from utils.logger import get_logger
+
+logger = get_logger(__name__)
 
 def clean_text(text):
     text = str(text)
@@ -9,21 +12,31 @@ def clean_text(text):
     text = re.sub(r'[^a-zA-Z0-9\s]', '', text)
     return text.lower().strip()
 
-df = pd.read_csv(RAW_DATA_PATH)
+def main():
+    logger.info("Inizializing data cleaning process...")    
+    logger.info("Loading cleaning dataset from %s", RAW_DATA_PATH)
+    df = pd.read_csv(RAW_DATA_PATH)
 
-df = df.rename(columns={
-    'tweet_text': 'text', 
-    'emotion_in_tweet_is_directed_at': 'brand',
-    'is_there_an_emotion_directed_at_a_brand_or_product': 'sentiment'
-})
+    logger.info("Renaming columns for consistency...")
+    df = df.rename(columns={
+        'tweet_text': 'text', 
+        'emotion_in_tweet_is_directed_at': 'brand',
+        'is_there_an_emotion_directed_at_a_brand_or_product': 'sentiment'
+    })
 
-df = df.dropna(subset=['text'])
+    logger.info("Removing rows with missing text...")
+    df = df.dropna(subset=['text'])
 
-df = df[df['sentiment'] != "I can't tell"]
+    logger.info("Removing rows with ambiguous sentiment...")
+    df = df[df['sentiment'] != "I can't tell"]
 
-df['text'] = df['text'].apply(clean_text)
+    logger.info("Applying regex for cleaning text data...")
+    df['text'] = df['text'].apply(clean_text)
 
-df.to_csv(CLEAN_DATA_PATH, index=False)
+    logger.info("Saving cleaned dataset to %s", CLEAN_DATA_PATH)
+    df.to_csv(CLEAN_DATA_PATH, index=False)
 
-print(df.shape)
-print(df.head())
+    logger.info(f"Process completed. Dataset shape: {df.shape[0]}")
+
+if __name__ == "__main__":
+    main()
