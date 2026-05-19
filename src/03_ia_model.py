@@ -1,7 +1,8 @@
+from utils.config import CLEAN_DATA_PATH
 import pandas as pd
 from transformers import pipeline
 
-df  = pd.read_csv('data/clean_train.csv')
+df  = pd.read_csv(CLEAN_DATA_PATH)
 
 sentiment_analyzer = pipeline("sentiment-analysis")
 

@@ -1,3 +1,4 @@
+from utils.config import RAW_DATA_PATH, CLEAN_DATA_PATH
 import pandas as pd 
 import re 
 
@@ -8,7 +9,7 @@ def clean_text(text):
     text = re.sub(r'[^a-zA-Z0-9\s]', '', text)
     return text.lower().strip()
 
-df = pd.read_csv('data/train.csv')
+df = pd.read_csv(RAW_DATA_PATH)
 
 df = df.rename(columns={
     'tweet_text': 'text', 
@@ -22,7 +23,7 @@ df = df[df['sentiment'] != "I can't tell"]
 
 df['text'] = df['text'].apply(clean_text)
 
-df.to_csv('data/clean_train.csv', index=False)
+df.to_csv(CLEAN_DATA_PATH, index=False)
 
 print(df.shape)
 print(df.head())

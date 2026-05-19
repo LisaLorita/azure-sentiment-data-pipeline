@@ -1,6 +1,7 @@
+from utils.config import RAW_DATA_PATH
 import pandas as pd 
 
-df = pd.read_csv('data/train.csv')
+df = pd.read_csv(RAW_DATA_PATH)
 
 print("Dataset shape (rows, columns):")
 print(df.shape)
