@@ -5,6 +5,9 @@ from transformers import pipeline
 from google import genai
 from utils.config import CLEAN_DATA_PATH
 from utils.logger import get_logger
+from dotenv import load_dotenv
+
+load_dotenv()
 
 logger = get_logger(__name__)
 
